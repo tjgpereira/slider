@@ -1,0 +1,106 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.js"></script>
+<style>
+#testimonialText{
+  font-size: 20px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  color:black;
+  font-weight: normal;
+  text-align: center;
+}
+#testimonialSource{
+  font-size: 20px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  color:black;
+  font-weight: bolder;
+}
+</style> 
+<center>
+<div id="slider">
+  <table>
+    <tr>
+      <th rowspan=2 valign=top>
+        <img src="https://sites.google.com/a/scalesmarter.com/scale-smarter/home/quote_start.png" alt="Start Quote">
+      </th>
+      <th style="text-align:center;width:90%;height:250px"><span id="testimonialText"></span></th>
+      <th rowspan=2 valign=bottom>
+        <img src="https://sites.google.com/a/scalesmarter.com/scale-smarter/home/quote_end.png" alt="End Quote">
+      </th>
+    </tr>
+    <tr>
+      <th style="text-align:center"><span id="testimonialSource"></span></th>
+    </tr>
+    <tr>
+      <th colspan=5><span id="breadCrumb"></span></th>
+    </tr>
+    <tr>
+      <table>
+        <tr>
+          <th valign=middle>
+            <img id="goRight" src="https://sites.google.com/a/scalesmarter.com/scale-smarter/slider_control_backward.png" alt="Arrow Right">
+          </th>
+          <th>
+            <img id="goPlay" style="display:none" src="https://sites.google.com/a/scalesmarter.com/scale-smarter/slider_control_play.png" alt="Play">
+            <img id="goPause" src="https://sites.google.com/a/scalesmarter.com/scale-smarter/slider_control_pause.png" alt="Pause">
+          </th>
+          <th valign=middle>
+            <img id="goLeft" src="https://sites.google.com/a/scalesmarter.com/scale-smarter/slider_control_forward.png" alt="Arrow Left">
+          </th>
+        </tr>
+      </table>
+    </tr> 
+ </table>
+</div> 
+</center> 
+<script>
+  var testmonials = [
+    ["Joel Brockman, CEO & Co-Founder - GoinGreen Presentations","Outstanding capabilities! We had a super tight deadline on a mission critical solution utilizing our clients existing Google Apps infrastructure. None of the large consultancies could deliver but Scale Smarter LLC and their team provided the perfect solution.... for a fraction of the cost and time. Highly qualified, professional, on time and on budget SS and their team are top shelf! I highly recommend them and will be hiring them at every opportunity"],
+    ["Linden Lumbewe, Executive Director - Syndeticom Electrical & Communications Pty Ltd","Our company (Syndeticom) had a very specific requirement for creating a web based quoting portal to enable quick turn around complex quotes for one of larger customers.  We had already created a functional example in Excel, however we needed the Security permissions of Google Apps and ease of use of a web based platform.  We chose Scale Smarter LLC to complete these works not because of their resume but for their enthusiasm and commitment.  With minimal input required from our end Scale Smarter turned this project around quickly and well executed, even bending things to fit where the native functionality didn't already exist.  Scale Smarter's business understanding was paramount in the success of our project, for which we are happy we chose the right Company for the job."],
+    ["Devin Northrup, User Experience Designer - Degreed","I had an outstanding experience working with Scale Smarter LLC building a timesheet application in Google Apps for a client. From day one, Scale Smarter demonstrated their skills by recommending a superior product approach which saved me money. The work was completed quickly and the app is extremely stable. It's been in ongoing use for a year with no reported issues, which is evidence of quality development work. They are great at communicating progress throughout the process. As an experienced UX designer, I've had experience working with hundreds of developers. Scale Smarter's team possesses all the qualities of top notch developers. I highly recommend their services."]];
+    var actTest=0;
+    var isPaused=false;
+    var tmOut;
+    function init(){
+      $("#testimonialSource").text(testmonials[actTest][0]);
+      $("#testimonialText").text(testmonials[actTest][1]);
+      tmOut = setTimeout(function(){moveLeft("auto");} , 6000);
+    };
+    $("#goLeft").click(function() {
+      moveLeft("btn");
+    });
+    $("#goRight").click(function() {
+      moveRight();
+    });
+    $("#goPlay").click(function() {
+      togglePlayPause();
+    });
+    $("#goPause").click(function() {
+      togglePlayPause();
+    });
+    function togglePlayPause(){
+      if (isPaused){
+        $("#goPause").css({display: "block"});
+        $("#goPlay").css({display: "none"});
+        isPaused=false;
+        init();
+      }else{
+        $("#goPause").css({display: "none"});
+        $("#goPlay").css({display: "block"});
+        clearTimeout(tmOut);
+        isPaused=true;
+      }
+    };
+    function moveRight(){
+      if(actTest!=(testmonials.length-1)) actTest++;
+      else actTest=0;
+      $('#testimonialText').animate({opacity: '0.0'}, "slow",function(){init();});
+      $('#testimonialText').animate({opacity: '1'}, "slow");
+    };
+    function moveLeft(caller){
+      if (caller=="auto" && isPaused) return;
+      if(actTest) actTest--;
+      else actTest = testmonials.length-1;
+      $('#testimonialText').animate({opacity: '0.0'}, "slow",function(){init();});
+      $('#testimonialText').animate({opacity: '1'}, "slow");
+    };
+    init();
+</script>
